@@ -1,0 +1,33 @@
+[project]
+name = "socc-icp"
+version = "1.0.0"
+description = "SOCC-ICP: Semantics-Assisted Odometry Based on Occupancy Grids and ICP."
+maintainers = [
+    { name = "Johannes Scherer", email = "johannes.scherer.ivi@outlook.com" },
+]
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+dependencies = [
+    "radix-clients",
+    "kiss-icp==1.2.3",
+    "numpy==1.24.2",
+    "matplotlib==3.9.2",
+    "evo==1.31.1",
+    "sophus-pybind @ git+https://github.com/strasdat/Sophus.git@1.24.6",
+    "deepmerge==2.0"
+]
+
+[tool.uv.sources]
+radix-clients = { path = "../radix_clients" }
+
+
+
+
+
+
+
+
+
+
+
+

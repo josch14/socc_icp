@@ -1,0 +1,8 @@
+data_params:
+  base_path: "/home/subt-mrs"
+
+slam_client_params:
+  chunk_delete_rest: False
+
+registration_params:
+  min_distance: 1.0

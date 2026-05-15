@@ -1,0 +1,5 @@
+data_params:
+  base_path: "/home/MulRan/"
+
+general_params:
+  deskewing_mode: "mid"

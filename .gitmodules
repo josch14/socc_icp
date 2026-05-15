@@ -1,0 +1,12 @@
+[submodule "src/radix_ros2_pkg"]
+	path = src/radix_ros2_pkg
+	url = https://github.com/ProjectVERUM/radix_ros2_pkg.git
+[submodule "src/radix_msgs_ros2_pkg"]
+	path = src/radix_msgs_ros2_pkg
+	url = https://github.com/ProjectVERUM/radix_msgs_ros2_pkg.git
+[submodule "src/radix_clients"]
+	path = src/radix_clients
+	url = https://github.com/ProjectVERUM/radix_clients.git
+[submodule "src/ros2_numpy"]
+	path = src/ros2_numpy
+	url = https://github.com/ProjectVERUM/ros2_numpy.git

@@ -1,0 +1,8 @@
+data_params:
+  base_path: "/home/newer_college"
+
+registration_params:
+  min_distance: 1.0
+
+general_params:
+  deskewing_mode: "mid"

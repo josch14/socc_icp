@@ -1,0 +1,67 @@
+data_params:
+  base_path: "/home/kitti_dataset"
+
+general_params:
+  use_labels: True
+  use_predicted_labels: True
+
+label_mapping:
+  # class mapping based on LSK3DNet semantic classes
+  0: 0 # "unlabeled"
+  1: 0 # "outlier" mapped to "unlabeled"
+  10: 1 # "car"
+  11: 2 # "bicycle"
+  13: 5 # "bus" mapped to "other-vehicle"
+  15: 3 # "motorcycle"
+  16: 5 # "on-rails" mapped to "other-vehicle"
+  18: 4 # "truck"
+  20: 5 # "other-vehicle"
+  30: 6 # "person"
+  31: 7 # "bicyclist"
+  32: 8 # "motorcyclist"
+  40: 9 # "road"
+  44: 10 # "parking"
+  48: 11 # "sidewalk"
+  49: 12 # "other-ground"
+  50: 13 # "building"
+  51: 14 # "fence"
+  52: 0 # "other-structure" mapped to "unlabeled"
+  60: 9 # "lane-marking" to "road"
+  70: 15 # "vegetation"
+  71: 16 # "trunk"
+  72: 17 # "terrain"
+  80: 18 # "pole"
+  81: 19 # "traffic-sign"
+  99: 0 # "other-object" to "unlabeled"
+  252: 1 # "moving-car" to "car"
+  253: 7 # "moving-bicyclist" to "bicyclist"
+  254: 6 # "moving-person" to "person"
+  255: 8 # "moving-motorcyclist" to "motorcyclist"
+  256: 5 # "moving-on-rails" mapped to "other-vehicle"
+  257: 5 # "moving-bus" mapped to "other-vehicle"
+  258: 4 # "moving-truck" to "truck"
+  259: 5 # "moving-other-vehicle" to "other-vehicle"
+
+
+semantic_downsampling_factors:
+  # used for "voxel_adaptive_semantic" downsampling method
+  0: 1.0 # "unlabeled"
+  1: 1.0 # "car"
+  2: 1.0 # "bicycle"
+  3: 1.0 # "motorcycle"
+  4: 1.0 # "truck"
+  5: 1.0 # "other-vehicle"
+  6: 0.0 # "person"
+  7: 0.0 # "bicyclist"
+  8: 0.0 # "motorcyclist"
+  9: 0.8 # "road"
+  10: 0.8 # "parking"
+  11: 0.8 # "sidewalk"
+  12: 0.8 # "other-ground"
+  13: 1.0 # "building"
+  14: 1.0 # "fence"
+  15: 1.0 # "vegetation"
+  16: 1.0 # "trunk"
+  17: 0.8 # "terrain"
+  18: 0.75 # "pole"
+  19: 0.75 # "traffic-sign"

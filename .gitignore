@@ -1,0 +1,15 @@
+# ROS
+build/
+install/
+log/
+
+# run logs
+log*/
+
+# Python
+__pycache__/
+
+# Editor / tooling
+.vscode/
+.claude
+CLAUDE.md

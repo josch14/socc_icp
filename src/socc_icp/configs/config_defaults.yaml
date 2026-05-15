@@ -1,0 +1,48 @@
+data_params:
+  base_path: ""  # path to dataset
+  jump: 0        # number of frames to skip before running pipeline
+  n_scans: -1    # number of scans to process; -1 for all scans
+  seed: 0
+
+slam_client_params:
+  radix_topic: "/semantic_cloud"  # topic used to publish point clouds to Radix
+  chunk_range: 125.0              # range (in meters) for each chunk (little larger than max_distance in registration_params)
+  chunk_delete_rest: True         # whether to delete area outside of requested chunk area in Radix
+
+downsampling_params:
+  desired_num_points: 2500               # desired number of points after downsampling
+  voxel_size_init: 0.6                   # initial voxel size for downsampling
+  adaptive_voxel_size_min: 0.02          # minimum adaptive voxel size
+  adaptive_voxel_size_max: 2.0           # maximum adaptive voxel size
+  use_centroid: True                     # whether to keep centroid or random point as a result of voxel downsampling
+
+adaptive_threshold_params:
+  adaptive_threshold_init: 2.0  # initial value for adaptive threshold / sigma
+  is_adaptive: True             # whether to actually use adaptive thresholding
+  min_motion_threshold: 0.1
+  max_distance: 100.0              # should be equal to registration_params.max_distance
+
+registration_params:
+  min_distance: 5.0                       # minimal distance of points to sensor to consider
+  max_distance: 100.0                     # maximum distance of points to sensor to consider
+  max_num_iterations: 100                 # maximum number of ICP iterations
+  convergence_criterion: 0.0001           # convergence criterion based on change in prediction
+  planarity_threshold: 0.1                # decision boundary between planar and non-planar cells
+  n_points_for_normal: 5                  # minimum number of points inserted into cell to be considered as planar cell
+  sigma_factor_correspondence: 3.0        # max. correspondence distance = factor * sigma 
+  sigma_factor_kernel: 0.3333333333333333 # kernel weight = factor * sigma
+  weight_occ_prob_gamma: 1.5              # w = p_occ^gamma for gamma >= 0 and p_occ in [0.5, 1]
+  weight_semantic_lower: 0.25             # lower bound for semantic weights
+  voxel_reference_point: "first_point"    # reference point for each voxel: "center", "mean", or "first_point"
+
+general_params:
+  deskewing_mode: "none"       # "mid", "end", or "none"
+  use_labels: False            # whether to actually use label information if provided
+  use_predicted_labels: False  # only for KITTI: whether to use predicted or gt labels
+
+label_mapping:
+  {}  # empty mapping by default
+
+semantic_downsampling_factors:
+  # used within downsampling method 
+  0: 1.0  # "unlabeled"
