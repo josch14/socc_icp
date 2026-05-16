@@ -28,7 +28,7 @@ sudo apt update && sudo apt install -y \
 
 Clone the repository with all submodules and build the Radix packages:
 ```bash
-git clone https://github.com/josch14/socc_icp.git --recurse-submodules
+git clone --recurse-submodules https://github.com/josch14/socc_icp.git
 cd socc_icp/
 colcon build --packages-select radix_ros radix_msgs --symlink-install
 source install/setup.bash

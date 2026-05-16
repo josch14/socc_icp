@@ -12,6 +12,7 @@ RUN apt update && apt install -y \
     libpcl-dev \
     python3-pip \
     python-is-python3 \
+    git \
     wget \
     nano \
     && rm -rf /var/lib/apt/lists/*
@@ -37,39 +38,40 @@ RUN git clone --branch main --depth 1 https://github.com/strasdat/Sophus.git && 
 WORKDIR /home
 
 # create workspace
-COPY . "/home/socc_icp_ws"
+COPY . "/home/socc_icp"
 
-# radix_clients at commit 7966e71a626830a1491411d33d88aa1f5451beda
-RUN git clone TODO socc_icp_ws/src/radix_clients && \
-    cd socc_icp_ws/src/radix_clients && git reset --hard 7966e71a626830a1491411d33d88aa1f5451beda && cd ../../..
-# radix_msgs_ros2_pkg at commit bd5eec03f401de86477f9eaf102980008a096c4e
-RUN git clone TODO socc_icp_ws/src/radix_msgs_ros2_pkg && \
-    cd socc_icp_ws/src/radix_msgs_ros2_pkg && git reset --hard bd5eec03f401de86477f9eaf102980008a096c4e && cd ../../..
-# radix_ros2_pkg at commit e97c65b6b92b736160580d8e29528c234326e940
-RUN git clone TODO socc_icp_ws/src/radix_ros2_pkg && \
-    cd socc_icp_ws/src/radix_ros2_pkg && git reset --hard e97c65b6b92b736160580d8e29528c234326e940 && cd ../../..
-# ros2_numpy at commit 74f826658a2e8b3d517487bfda26d0274d948310
-RUN git clone TODO socc_icp_ws/src/ros2_numpy && \
-    cd socc_icp_ws/src/ros2_numpy && git reset --hard 74f826658a2e8b3d517487bfda26d0274d948310 && cd ../../..
+# radix_clients at commit 604007a78e16b59e5eafbdbed0773406a5b764dc
+RUN git clone https://github.com/ProjectVERUM/radix_clients.git socc_icp/src/radix_clients && \
+    cd socc_icp/src/radix_clients && git reset --hard 604007a78e16b59e5eafbdbed0773406a5b764dc && cd ../../..
+# radix_msgs_ros2_pkg at commit d5cd522109806354f2417146cce388292f63bcaa
+RUN git clone https://github.com/ProjectVERUM/radix_msgs_ros2_pkg.git socc_icp/src/radix_msgs_ros2_pkg && \
+    cd socc_icp/src/radix_msgs_ros2_pkg && git reset --hard d5cd522109806354f2417146cce388292f63bcaa && cd ../../..
+# radix_ros2_pkg at commit 38c80c2a73644f4ec9a9d8140a1a7ad7f09ed974
+RUN git clone https://github.com/ProjectVERUM/radix_ros2_pkg.git socc_icp/src/radix_ros2_pkg && \
+    cd socc_icp/src/radix_ros2_pkg && git reset --hard 38c80c2a73644f4ec9a9d8140a1a7ad7f09ed974 && cd ../../..
+# ros2_numpy at commit b69cb892f6609fbdb739afc8358226100fc5dda2
+RUN git clone https://github.com/ProjectVERUM/ros2_numpy.git socc_icp/src/ros2_numpy && \
+    cd socc_icp/src/ros2_numpy && git reset --hard b69cb892f6609fbdb739afc8358226100fc5dda2 && cd ../../..
 
 
 # Build Radix ROS packages
-WORKDIR /home/socc_icp_ws
+WORKDIR /home/socc_icp
 RUN . /opt/ros/humble/setup.sh && colcon build --packages-select radix_ros radix_msgs
 # Build deskewing_cpp module
-WORKDIR /home/socc_icp_ws/src/socc_icp/socc_icp/deskewing_cpp
+WORKDIR /home/socc_icp/src/socc_icp/socc_icp/deskewing_cpp
 RUN mkdir build && cd build && \
     cmake .. && make -j"$(nproc)" && \
-    mv sophus_deskewer.cpython-310-x86_64-linux-gnu.so ..
+    mv sophus_deskewer.cpython-310-x86_64-linux-gnu.so .. && \
+    cd .. && rm -rf build
 
 # Install Python dependencies
-WORKDIR /home/socc_icp_ws/src/socc_icp
+WORKDIR /home/socc_icp/src/socc_icp
 RUN pip install uv && \
     uv pip install -r pyproject.toml --system
 
 # Source ROS 2 and workspace setup
 RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc && \
-    echo "source /home/socc_icp_ws/install/setup.bash" >> /root/.bashrc
+    echo "source /home/socc_icp/install/setup.bash" >> /root/.bashrc
 
 # Default command
 CMD ["bash"]

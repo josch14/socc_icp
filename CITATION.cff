@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+preferred-citation:
+  title: "SOCC-ICP: Semantics-Assisted Odometry based on Occupancy Grids and ICP"
+  url: "https://arxiv.org/abs/2605.15074"
+  year: "2026"
+  type: article
+  journal: "IEEE Robotics and Automation Letters (RA-L)"
+  codeurl: https://github.com/josch14/socc_icp
+  authors:
+    - family-names: Scherer
+      given-names: Johannes
+    - family-names: Hirt
+      given-names: Sebastian
+    - family-names: Meeß
+      given-names: Henri

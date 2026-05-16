@@ -10,49 +10,35 @@
 
 ## 📖 Overview
 
-SOCC-ICP is implemented on ROS2 Humble, with [Radix](https://github.com/ProjectVERUM/radix_ros2_pkg) handling semantic occupancy grid mapping in a separate node and scan registration currently performed in Python. The current system is a proof of concept and is not optimized for efficiency. This repository is intended for reproducing the results reported in the paper, an odometry server or a highly optimized implementation is currently not provided 🤖
+SOCC-ICP is implemented on ROS2 Humble, with [Radix](https://github.com/ProjectVERUM/radix_ros2_pkg) handling semantic occupancy grid mapping in a separate node and scan registration currently performed in Python. The current system is a proof of concept and is not optimized for efficiency. This repository is intended as an accessible and easily adaptable codebase for reproducing the results reported in the paper. A production-ready implementation is not provided 🤖💭 The main performance bottlenecks are:
+- **Python scan registration**: a native C++ implementation would significantly reduce per-frame processing time
+- **ROS2 communication overhead**: the split between Radix (mapping) and the registration node introduces serialization and transport costs that a unified implementation would avoid
+- **Algorithmic headroom**: further optimizations on both the mapping and registration side are possible and left for future work
 
 This repository contains the scan registration module as described in the paper. The semantic occupancy grid mapping side is handled by the [radix_ros2_pkg](https://github.com/ProjectVERUM/radix_ros2_pkg) submodule and its companions, included here as git submodules under `src/`.
 
 
-## 🚀 Getting Started
-
-See [INSTALLATION.md](INSTALLATION.md) for full setup instructions.
-
-
 ## 📦 Dataset Preparation
 
-### KITTI
+Instructions for downloading and preparing each dataset used in the paper (KITTI, MulRan, Newer College, Ground-Challenge, SubT-MRS) are provided in [DATASETS.md](DATASETS.md).
 
-Download from the following sources:
-- [Velodyne laser data, calibration files, ground truth poses](https://www.cvlibs.net/datasets/kitti/eval_odometry.php)
-- [SemanticKITTI label data](https://semantic-kitti.org/dataset.html#download) (179 MB)
-- Predicted labels from [LSK3DNet](https://arxiv.org/abs/2403.15173) — available at [josch14/LSK3DNet_kitti_preds](https://github.com/josch14/LSK3DNet_kitti_preds)
 
-Expected directory structure:
-```
-kitti_dataset/
-├── poses/
-│   ├── 00.txt
-│   ├── 01.txt
-│   └── ...
-└── sequences/
-    ├── 00/
-    │   ├── velodyne/
-    │   │   ├── 000000.bin
-    │   │   └── ...
-    │   ├── labels/
-    │   │   ├── 000000.label
-    │   │   └── ...
-    │   ├── labels_lsk3dnet/
-    │   │   ├── 000000.label
-    │   │   └── ...
-    │   ├── calib.txt
-    │   └── times.txt
-    └── ...
+## 🚀 Getting Started
+
+Clone the repository with all submodules:
+```bash
+git clone --recurse-submodules https://github.com/josch14/socc_icp.git
+cd socc_icp
 ```
 
-TODO add info for other datasets
+**Option A — Docker (recommended):** avoids manual dependency management and environment issues. Build the image once, then mount your dataset (e.g. KITTI) and run:
+
+```bash
+docker build -t socc_icp .
+docker run -it --rm -v /path/to/kitti_dataset:/home/kitti_dataset socc_icp bash
+```
+
+**Option B — Local installation:** see [INSTALLATION.md](INSTALLATION.md) for step-by-step instructions.
 
 
 ## ▶️ Usage
