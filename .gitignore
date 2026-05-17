@@ -13,3 +13,6 @@ __pycache__/
 .vscode/
 .claude
 CLAUDE.md
+
+# binary that is built during installation
+src/socc_icp/socc_icp/deskewing_cpp/*.so
