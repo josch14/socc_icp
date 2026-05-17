@@ -211,12 +211,12 @@ class OdometryPipeline:
                 frame_id_child="pub_client_frame",
                 transform=se3_to_transform(T_pred),
                 batch_size=30_000,
-                batch_timeout=5.0,
+                batch_timeout=60.0,
                 batch_by_angle=True,
             )
             if not ack_received:
                 raise TimeoutError(
-                    "Timeout while waiting for ACK from Radix after 3 seconds"
+                    "Timeout while waiting for ACK from Radix after 60 seconds"
                 )
             time_radix_insert = time.perf_counter_ns() - time_start
 
