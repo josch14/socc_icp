@@ -17,6 +17,12 @@ SOCC-ICP is implemented on ROS2 Humble, with [Radix](https://github.com/ProjectV
 
 This repository contains the scan registration module as described in the paper. The semantic occupancy grid mapping side is handled by the [radix_ros2_pkg](https://github.com/ProjectVERUM/radix_ros2_pkg) submodule and its companions, included here as git submodules under `src/`.
 
+## 🗒️ Open TODOs
+
+- [ ] Add docker pull option for pre-built image (see radix package)
+- [ ] Add evaluation instructions
+- [ ] Add SOCC-ICP logs for all datasets
+
 
 ## 📦 Dataset Preparation
 
@@ -38,6 +44,7 @@ docker build -t socc_icp .
 docker run -it --rm -v /path/to/kitti_dataset:/home/kitti_dataset socc_icp bash
 ```
 
+
 **Option B — Local installation:** see [INSTALLATION.md](INSTALLATION.md) for step-by-step instructions.
 
 
@@ -48,13 +55,14 @@ From `src/socc_icp/`:
 cd src/socc_icp/
 ```
 
-**KITTI** (with / without semantics):
+**KITTI** (with / without semantics), uses the default Radix config (as used to produce paper results):
 ```bash
 python -m run.run_kitti
 python -m run.run_kitti --no-semantics
 ```
 
 **MulRan:**
+Note: The paper results were produced with $p^{miss} = 0.475$ set in Radix.
 ```bash
 python -m run.run_mulran
 ```
@@ -65,16 +73,21 @@ python -m run.run_newer_college
 ```
 
 **Ground Challenge:**
+Note: The paper results were produced with a voxel size of 0.2 m and $p^{miss} = 0.485$ set in Radix.
 ```bash
 python -m run.run_ground_challenge
 ```
 
 **SubT-MRS:**
+Note: The paper results were produced with a voxel size of 0.2 m and $p^{miss} = 0.485$ set in Radix.
 ```bash
 python -m run.run_subt_mrs
 ```
+Note: The SubT-MRS ground truth only covers roughly half of the scans; the remaining frames are filled with zero poses as placeholders. Before evaluation, run the following script to filter out those invalid frames from the output:
+```bash
+python -m scripts.fix_subt_mrs
+```
 
-TODO add info for evaluation
 
 
 ## 🙏 Acknowledgements

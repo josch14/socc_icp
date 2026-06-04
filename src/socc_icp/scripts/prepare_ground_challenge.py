@@ -5,9 +5,8 @@ import rosbag
 import sensor_msgs.point_cloud2 as pc2  # type: ignore
 from tqdm import tqdm
 
-sequence = "corridor1"  # "corridor1" or "corridor2"
-PATH_ROSBAG = f"/mnt/e/ground-challenge/{sequence}/{sequence}.bag"
-PATH_DATA_SAVE = f"/mnt/e/ground-challenge/{sequence}/clouds_with_times/"
+BASE_DIR = "/home/ground-challenge"
+SEQUENCES = ["corridor1", "corridor2"]
 
 
 def save_point_cloud_and_times(points: np.ndarray, times: np.ndarray, filename):
@@ -15,8 +14,15 @@ def save_point_cloud_and_times(points: np.ndarray, times: np.ndarray, filename):
     np.save(filename, combined)
 
 
-def main():
-    bag = rosbag.Bag(PATH_ROSBAG, mode="r")
+def process_sequence(sequence: str):
+    path_rosbag = os.path.join(BASE_DIR, sequence, f"{sequence}.bag")
+    path_data_save = os.path.join(BASE_DIR, sequence, "clouds_with_times")
+
+    if not os.path.exists(path_rosbag):
+        raise FileNotFoundError(f"Data path {path_rosbag} does not exist")
+    os.makedirs(path_data_save, exist_ok=True)
+
+    bag = rosbag.Bag(path_rosbag, mode="r")
     n_scans = bag.get_message_count(topic_filters="/velodyne_points")
     print(f"Processing bag file {bag.filename} with {n_scans} scans")
 
@@ -24,18 +30,15 @@ def main():
     for i in tqdm(range(n_scans)):
         _, msg, _ = next(msgs)  # type: ignore
 
-        # stamp info
         secs = msg.header.stamp.secs
         nsecs = msg.header.stamp.nsecs
 
-        # pc
         points_times = np.array(
             list(pc2.read_points(msg, field_names=["x", "y", "z", "time"]))
         ).astype(np.float32)
         points = points_times[:, :3]
         times = points_times[:, 3:]
 
-        # normalize time between 0 and 1
         if points.shape[0] > 0:
             min_time = times.min()
             max_time = times.max()
@@ -44,17 +47,12 @@ def main():
             else:
                 raise ValueError("max_time should be greater than min_time")
 
-        # save pc
         name_cloud = f"cloud_{secs:10d}_{nsecs:09d}.npy"
         save_point_cloud_and_times(
-            points, times, os.path.join(PATH_DATA_SAVE, name_cloud)
+            points, times, os.path.join(path_data_save, name_cloud)
         )
 
 
 if __name__ == "__main__":
-    if not os.path.exists(PATH_ROSBAG):
-        raise FileNotFoundError(f"Data path {PATH_ROSBAG} does not exist")
-    if not os.path.exists(PATH_DATA_SAVE):
-        os.makedirs(PATH_DATA_SAVE)
-
-    main()
+    for sequence in SEQUENCES:
+        process_sequence(sequence)
