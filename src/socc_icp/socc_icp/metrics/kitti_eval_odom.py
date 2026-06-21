@@ -429,14 +429,14 @@ class KittiEvalOdom:
         seq_err = self.calc_sequence_errors(poses_true, poses_pred)
         self.save_sequence_errors(seq_err, os.path.join(dir_errors, "seq_err.txt"))
         avg_segment_errs = self.compute_segment_error(seq_err)
-        ave_t_err, ave_r_err = self.compute_overall_err(seq_err)
-        ate = self.compute_ATE(poses_true, poses_pred)
-        rpe_trans, rpe_rot = self.compute_RPE(poses_true, poses_pred)
-        print(f"Translational error (%): {ave_t_err * 100:.3f}")
-        print(f"Rotational error (deg/100m): {ave_r_err / np.pi * 180 * 100:.3f}")
-        print(f"ATE (m): {ate:.3f}")
-        print(f"RPE (m): {rpe_trans:.3f}")
-        print(f"RPE (deg): {rpe_rot * 180 / np.pi:.3f}")
+        # ave_t_err, ave_r_err = self.compute_overall_err(seq_err)
+        # ate = self.compute_ATE(poses_true, poses_pred)
+        # rpe_trans, rpe_rot = self.compute_RPE(poses_true, poses_pred)
+        # print(f"Translational error (%): {ave_t_err * 100:.3f}")
+        # print(f"Rotational error (deg/100m): {ave_r_err / np.pi * 180 * 100:.3f}")
+        # print(f"ATE (m): {ate:.3f}")
+        # print(f"RPE (m): {rpe_trans:.3f}")
+        # print(f"RPE (deg): {rpe_rot * 180 / np.pi:.3f}")
         for ax1, ax2 in [("x", "y"), ("x", "z"), ("y", "z")]:
             self.plot_trajectory_mod(
                 list(poses_pred.values()),
@@ -446,8 +446,8 @@ class KittiEvalOdom:
                 dir_plot_trajectory,
             )
         self.plot_error(avg_segment_errs, dir_out=dir_plot_error)
-        with open(file_results_txt, "w") as f:
-            self.write_result(f, 0, [ave_t_err, ave_r_err, ate, rpe_trans, rpe_rot])
+        # with open(file_results_txt, "w") as f:
+        #     self.write_result(f, 0, [ave_t_err, ave_r_err, ate, rpe_trans, rpe_rot])
 
     @staticmethod
     def apply_alignment(

@@ -26,11 +26,6 @@ SOCC-ICP is implemented on ROS2 Humble, with [Radix](https://github.com/ProjectV
 
 This repository contains the scan registration module as described in the paper. The semantic occupancy grid mapping side is handled by the [radix_ros2_pkg](https://github.com/ProjectVERUM/radix_ros2_pkg) submodule and its companions, included here as git submodules under `src/`.
 
-## 🗒️ Open TODOs
-
-- [ ] Add docker pull option for pre-built image (see radix package)
-- [ ] Add evaluation instructions
-
 
 ## 📦 Dataset Preparation
 
@@ -64,6 +59,8 @@ docker run -it --rm -v /path/to/kitti_dataset:/home/kitti_dataset socc_icp bash
 
 
 ## ▶️ Usage
+
+Each script iterates over the sequences of the respective dataset. Results are written to `src/socc_icp/log/<timestamp>_sequ_<id>/`, containing the predicted and ground-truth trajectories, config, and statistics.
 
 From `src/socc_icp/`:
 ```bash
