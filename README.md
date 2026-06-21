@@ -1,12 +1,15 @@
-# SOCC-ICP: Semantics-Assisted Odometry based on Occupancy Grids and ICP
+<div align="center">
 
-
+# SOCC-ICP: Semantics-Assisted Odometry Based on Occupancy Grids and ICP
 
 <a href="https://github.com/josch14/socc_icp/tree/main/src/socc_icp"><img src="https://img.shields.io/badge/Python-3670A0?logo=python&logoColor=ffdd54" /></a>
 <a href="https://github.com/josch14/socc_icp"><img src="https://img.shields.io/badge/ROS2-blue" /></a>
 <a href="https://github.com/josch14/socc_icp/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT" /></a>
 <a href="https://arxiv.org/abs/2605.15074"><img src="https://img.shields.io/badge/arXiv-2605.15074-b31b1b.svg"/></a>
 <a href="https://ieeexplore.ieee.org/document/11543211"><img src="https://img.shields.io/badge/IEEE-10.1109/LRA.2026.3699259-004088.svg"/></a>
+<a href="https://github.com/josch14/socc_icp/pkgs/container/socc_icp"><img src="https://img.shields.io/badge/Docker-GHCR-2496ED?logo=docker&logoColor=white"/></a>
+
+</div>
 
 **Abstract:** Reliable pose estimation in previously unseen environments is a fundamental capability of autonomous systems. Existing LiDAR odometry methods typically employ point-, surfel-, or NDT-based map representations, which are distinct from the semantic occupancy grids commonly used for downstream tasks such as motion planning. We introduce SOCC-ICP, a semantics-assisted odometry framework that jointly performs Semantic OCCupancy grid mapping and LiDAR scan alignment. Each map voxel encodes geometric and semantic statistics, enabling adaptive point-to-point or point-to-plane ICP based on local planarity. Further, the occupancy grid naturally filters dynamic objects through raycasting-based free-space updates. Across diverse evaluation scenarios, SOCC-ICP achieves performance competitive with state-of-the-art LiDAR odometry and remains robust in geometrically degenerate environments, even in the absence of semantic cues. When semantic labels are available, integrating them into map construction, downsampling, and correspondence weighting yields further accuracy gains. By unifying odometry and semantic occupancy grid mapping within a single representation, SOCC-ICP eliminates redundant map structures and directly provides a map suitable for downstream robotic applications.
 
@@ -42,8 +45,15 @@ git clone --recurse-submodules https://github.com/josch14/socc_icp.git
 cd socc_icp
 ```
 
-**Option A — Docker (recommended):** avoids manual dependency management and environment issues. Build the image once, then mount your dataset (e.g. KITTI) and run:
+**Option A — Docker (recommended):** avoids manual dependency management and environment issues. Pull the pre-built image from GHCR, or build it locally. Afterwards, mount the dataset and run. 
 
+Pre-built image
+```bash
+docker pull ghcr.io/josch14/socc_icp:latest
+docker run -it --rm -v /path/to/kitti_dataset:/home/kitti_dataset ghcr.io/josch14/socc_icp:latest bash
+```
+
+Local build 
 ```bash
 docker build -t socc_icp .
 docker run -it --rm -v /path/to/kitti_dataset:/home/kitti_dataset socc_icp bash
