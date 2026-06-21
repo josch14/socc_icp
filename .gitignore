@@ -3,8 +3,12 @@ build/
 install/
 log/
 
-# run logs
-log*/
+# logs_paper
+logs_paper/ground_challenge/
+logs_paper/mulran/
+logs_paper/kitti/
+logs_paper/newer_college/
+logs_paper/subt_mrs/
 
 # Python
 __pycache__/

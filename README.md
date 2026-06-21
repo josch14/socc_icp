@@ -27,7 +27,6 @@ This repository contains the scan registration module as described in the paper.
 
 - [ ] Add docker pull option for pre-built image (see radix package)
 - [ ] Add evaluation instructions
-- [ ] Add SOCC-ICP logs for all datasets
 
 
 ## 📦 Dataset Preparation
@@ -94,6 +93,13 @@ Note: The SubT-MRS ground truth only covers roughly half of the scans; the remai
 python -m scripts.fix_subt_mrs
 ```
 
+
+
+## 📊 Paper Results
+
+The SOCC-ICP logs for all datasets are provided in [`logs_paper/`](logs_paper/), serving two purposes: verification of reported metrics and evaluation documentation. The logs are not tracked in git, download them from the [v0.1.0 release assets](https://github.com/josch14/socc_icp/releases/tag/v0.1.0).
+
+See [`logs_paper/README.md`](logs_paper/README.md) for details.
 
 
 ## 🙏 Acknowledgements
