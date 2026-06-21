@@ -1,6 +1,12 @@
 # SOCC-ICP: Semantics-Assisted Odometry based on Occupancy Grids and ICP
 
-**[RA-L 2026]** &nbsp;|&nbsp; [Paper (arXiv)](https://arxiv.org/abs/2605.15074)
+
+
+<a href="https://github.com/josch14/socc_icp/tree/main/src/socc_icp"><img src="https://img.shields.io/badge/Python-3670A0?logo=python&logoColor=ffdd54" /></a>
+<a href="https://github.com/josch14/socc_icp"><img src="https://img.shields.io/badge/ROS2-blue" /></a>
+<a href="https://github.com/josch14/socc_icp/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT" /></a>
+<a href="https://arxiv.org/abs/2605.15074"><img src="https://img.shields.io/badge/arXiv-2605.15074-b31b1b.svg"/></a>
+<a href="https://ieeexplore.ieee.org/document/11543211"><img src="https://img.shields.io/badge/IEEE-10.1109/LRA.2026.3699259-004088.svg"/></a>
 
 **Abstract:** Reliable pose estimation in previously unseen environments is a fundamental capability of autonomous systems. Existing LiDAR odometry methods typically employ point-, surfel-, or NDT-based map representations, which are distinct from the semantic occupancy grids commonly used for downstream tasks such as motion planning. We introduce SOCC-ICP, a semantics-assisted odometry framework that jointly performs Semantic OCCupancy grid mapping and LiDAR scan alignment. Each map voxel encodes geometric and semantic statistics, enabling adaptive point-to-point or point-to-plane ICP based on local planarity. Further, the occupancy grid naturally filters dynamic objects through raycasting-based free-space updates. Across diverse evaluation scenarios, SOCC-ICP achieves performance competitive with state-of-the-art LiDAR odometry and remains robust in geometrically degenerate environments, even in the absence of semantic cues. When semantic labels are available, integrating them into map construction, downsampling, and correspondence weighting yields further accuracy gains. By unifying odometry and semantic occupancy grid mapping within a single representation, SOCC-ICP eliminates redundant map structures and directly provides a map suitable for downstream robotic applications.
 
@@ -102,16 +108,16 @@ For questions or feedback, feel free to [open an issue](https://github.com/josch
 
 ## 📝 Citation
 
-If you find this work useful, please cite:
-
+If you find this work useful, please cite ([IEEE Xplore](https://ieeexplore.ieee.org/document/11543211) | [arXiv](https://arxiv.org/abs/2605.15074)):
 ```bibtex
-@misc{socc-icp,
-      title={SOCC-ICP: Semantics-Assisted Odometry based on Occupancy Grids and ICP},
-      author={Johannes Scherer and Sebastian Hirt and Henri Meeß},
-      year={2026},
-      eprint={2605.15074},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO},
-      url={https://arxiv.org/abs/2605.15074},
-}
+@ARTICLE{scherer2026soccicp,
+  author={Scherer, Johannes and Hirt, Sebastian and Meeß, Henri},
+  journal={IEEE Robotics and Automation Letters}, 
+  title={SOCC-ICP: Semantics-Assisted Odometry Based on Occupancy Grids and ICP}, 
+  year={2026},
+  volume={11},
+  number={7},
+  pages={8616-8623},
+  keywords={Iterative closest point algorithm;Odometry;Laser radar;Labeling;Clouds;Sequences;Sequential analysis;Grounding;Simultaneous localization and mapping;Conferences;Mapping;localization;SLAM},
+  doi={10.1109/LRA.2026.3699259}}
 ```
